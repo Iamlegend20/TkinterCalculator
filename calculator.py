@@ -2,6 +2,7 @@ import tkinter
 
 root = tkinter.Tk()
 root.title("Simple Calculator")
+first_number=None
 
 
 e = tkinter.Entry(root, borderwidth=5)
@@ -13,13 +14,29 @@ def button_click(number):
 def button_clear():
     e.delete(0, "end")
 def button_add():
-	global first_number
+	global first_number,operator
 	first_number = e.get()
+	operator="+"
 	e.delete(0, "end")
-def button_calculate():
-	answer = int(first_number) + int(e.get())
-	e.delete(0, "end")
-	e.insert(0, answer)
+def button_calculate(first_number,operator):
+    second_number=e.get()
+    if operator == "+":
+        answer = int(first_number) + int(second_number)
+        e.delete(0,"end")
+        e.insert(0,answer)
+    elif operator == "-":
+        answer = int(first_number) - int(second_number)
+        e.delete(0,"end")
+        e.insert(0,answer)
+    elif operator == "*":
+        answer = int(first_number) * int(second_number)
+        e.delete(0,"end")
+        e.insert(0,answer)
+    elif operator == "/":
+        answer = int(first_number) / int(second_number)
+        e.delete(0,"end")
+        e.insert(0,answer)
+
 
 typHeight = 2
 typWidth = 10
@@ -34,7 +51,7 @@ button_8 = tkinter.Button(root, text=("8"), height=typHeight, width=typWidth, co
 button_9 = tkinter.Button(root, text=("9"), height=typHeight, width=typWidth, command=lambda: button_click(9))
 button_0 = tkinter.Button(root, text=("0"), height=typHeight, width=typWidth, command=lambda: button_click(0))
 button_add = tkinter.Button(root, text=("+"), height=typHeight, width=typWidth, command=button_add)
-button_equal = tkinter.Button(root, text=("="), command=button_calculate)
+button_equal = tkinter.Button(root, text=("="), command=lambda: button_calculate(first_number, operator))
 button_clear = tkinter.Button(root, text=("Clear"), command=button_clear)
 
 button_1.grid(row=3, column=0)
